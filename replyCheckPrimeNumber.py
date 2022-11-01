@@ -26,18 +26,12 @@ def checkPrimeNumber(Number):
         Ans = '素数です'
     return Ans
 
-class IDPrinter(tweepy.StreamingClient):
+tweets = client.search_recent_tweets(query='#checkprimenumber',tweet_fields=['public_metrics'],)
 
-    def on_tweet(self, tweet):
-        print(tweet.text)
-        tweet_id = tweet.id
+for tweet in tweets.data:
+    if tweet.public_metrics['reply_count'] == 0:
         tweet_text = tweet.text.replace('#checkprimenumber', '')
         tweet_text = tweet_text.replace('\n', '')
         search_tweet_num = int(tweet_text)
         text_check_prime_number = checkPrimeNumber(search_tweet_num)
-        client.create_tweet(text = f"{text_check_prime_number}", in_reply_to_tweet_id=tweet_id)
-
-printer = IDPrinter(os.environ['bearer_token'])
-printer.add_rules(tweepy.StreamRule('checkprimenumber'))
-printer.filter()
-printer.sample()
+        client.create_tweet(text = f"{text_check_prime_number}", in_reply_to_tweet_id=tweet.id)

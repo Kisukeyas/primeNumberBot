@@ -26,7 +26,7 @@ def checkPrimeNumber(Number):
         Ans = '素数です'
     return Ans
 
-tweets = client.search_recent_tweets(query='#checkprimenumber',tweet_fields=['public_metrics'],)
+tweets = client.search_recent_tweets(query='#checkprimenumber',tweet_fields=['public_metrics'])
 
 for tweet in tweets.data:
     if tweet.public_metrics['reply_count'] == 0:

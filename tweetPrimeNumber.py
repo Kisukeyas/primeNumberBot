@@ -1,4 +1,5 @@
 from datetime import datetime
+from zoneinfo import ZoneInfo
 import os
 from dotenv import load_dotenv
 import tweepy
@@ -28,7 +29,7 @@ def checkPrimeNumber(Number):
     return Ans
 
 # 日付を出す
-dt_now = datetime.now()
+dt_now = datetime.now(ZoneInfo("Asia/Tokyo"))
 date = dt_now.strftime('%Y年%m月%d日')
 
 # 日付の数字を取得
